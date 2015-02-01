@@ -12,14 +12,15 @@ public class Player implements KeyListener{
 	String line;
 	int randomNum ;
 	int count = 0;
+	int answerCount = 0;
 	public void update(GameBetaApplet gba){
 		gba.addKeyListener(this);
 	}
 	public void paint(Graphics g)  {
 			Random randomGanarator = new Random();
 			if (answer.equals("Start")) {
-			randomNum = 1 + randomGanarator.nextInt(5);
-			answer = "Choose the correct answer. Press  A,B,C or D  button.";
+			randomNum = 1 + randomGanarator.nextInt(27);
+			answer = "";
 			}
 			try {
 				BufferedReader fileReader = new BufferedReader(new FileReader("QuestionsBeRich.txt"));
@@ -32,33 +33,37 @@ public class Player implements KeyListener{
 				e.printStackTrace();
 			}
 			String[] str = line.split("-");
-			if (!answer.equals("Choose the correct answer. Press  A,B,C or D  button.")) {
+			if (!answer.equals("")) {
 				if (answer.equals(str[5])) {
 					randomNum = 1 + randomGanarator.nextInt(5);
-					answer = "Choose the correct answer. Press  A,B,C or D  button.";
+					answer = "";
+					answerCount++;
 				}else {
 					count = -1;
 				}
 
 			}
 			if (count >= 0 ) {
-				//g.drawImage("/backGraund.jpg", 10, 40, 500, 100, null);
+				
 				g.setFont(new Font("TimesRoman", Font.BOLD, 40)); 
 				g.setColor(Color.ORANGE);
-				g.drawString(str[0], 20, 40);
-				g.setFont(new Font("TimesRoman", Font.BOLD, 20 ));
-				g.drawString(answer, 200, 150);
+				g.drawString(str[0], 20, 80);
+				
 				g.setFont(new Font("TimesRoman", Font.BOLD, 40 )); 
-				g.drawString("A - " + str[1], 180, 200);
-				g.drawString("C - "+str[3], 180, 300);
-				g.drawString("B - "+str[2], 420, 200);
-				g.drawString("D - "+str[4], 420, 300);
+				g.drawString(str[1], 109, 375);				
+				g.drawString(str[2], 109, 468);
+				g.drawString(str[3], 900, 375);
+				g.drawString(str[4], 900, 468);
 				
 			}
 			if (count < 0 ) {
-				g.setFont(new Font("TimesRoman", Font.BOLD, 40)); 
+			
+				g.setFont(new Font("TimesRoman", Font.BOLD, 80)); 
 				g.setColor(Color.RED);
-				g.drawString("...::: GAME OVER!!! :::...", 200, 200);
+				g.drawString("...::: GAME OVER!!! :::...", 250, 120);
+				g.setFont(new Font("TimesRoman", Font.ITALIC, 56));
+				String result = "Отговори правилно на " + answerCount + " въпроса";
+				g.drawString(result, 250, 180);
 			}
 	}
 		
