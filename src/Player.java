@@ -1,3 +1,4 @@
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,6 +14,7 @@ public class Player implements KeyListener{
 	int randomNum ;
 	int count = 0;
 	int answerCount = 0;
+	private Object end;
 	public void update(GameBetaApplet gba){
 		gba.addKeyListener(this);
 	}
@@ -22,6 +24,7 @@ public class Player implements KeyListener{
 			randomNum = 1 + randomGanarator.nextInt(27);
 			answer = "";
 			}
+			
 			try {
 				BufferedReader fileReader = new BufferedReader(new FileReader("QuestionsBeRich.txt"));
 				for (int j = 0; j < randomNum; j++) {
@@ -32,41 +35,57 @@ public class Player implements KeyListener{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			String[] str = line.split("-");
 			if (!answer.equals("")) {
 				if (answer.equals(str[5])) {
-					randomNum = 1 + randomGanarator.nextInt(5);
+					randomNum = 1 + randomGanarator.nextInt(27);
 					answer = "";
 					answerCount++;
 				}else {
 					count = -1;
+					
 				}
 
 			}
-			if (count >= 0 ) {
+			if (answerCount < 10){
+				if (count >= 0 ) {
+					
+					g.setFont(new Font("TimesRoman", Font.BOLD, 40)); 
+					g.setColor(Color.ORANGE);
+					g.drawString(str[0], 20, 80);
+					
+					g.setFont(new Font("TimesRoman", Font.BOLD, 40 )); 
+					g.drawString(str[1], 109, 375);				
+					g.drawString(str[2], 109, 468);
+					g.drawString(str[3], 900, 375);
+					g.drawString(str[4], 900, 468);
+					
+					
+				}
+				if (count < 0 ) {
+					
+					g.setFont(new Font("TimesRoman", Font.BOLD, 80)); 
+					g.setColor(Color.RED);
+					g.drawString("...::: GAME OVER!!! :::...", 250, 120);
+					g.setFont(new Font("TimesRoman", Font.ITALIC, 56));
+					String result = "Отговори правилно на " + answerCount + " от 27 въпроса";
+					g.drawString(result, 200, 180);
 				
-				g.setFont(new Font("TimesRoman", Font.BOLD, 40)); 
-				g.setColor(Color.ORANGE);
-				g.drawString(str[0], 20, 80);
-				
-				g.setFont(new Font("TimesRoman", Font.BOLD, 40 )); 
-				g.drawString(str[1], 109, 375);				
-				g.drawString(str[2], 109, 468);
-				g.drawString(str[3], 900, 375);
-				g.drawString(str[4], 900, 468);
-				
-			}
-			if (count < 0 ) {
-			
+					
+				}
+			} else {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 80)); 
 				g.setColor(Color.RED);
-				g.drawString("...::: GAME OVER!!! :::...", 250, 120);
+				g.drawString("ЧЕСТИТО!!!", 250, 120);
 				g.setFont(new Font("TimesRoman", Font.ITALIC, 56));
-				String result = "Отговори правилно на " + answerCount + " въпроса";
+				String result = "Отговори правилно на всички въпроси";
 				g.drawString(result, 250, 180);
 			}
+			
 	}
 		
+
 
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){

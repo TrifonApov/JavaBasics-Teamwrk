@@ -13,14 +13,24 @@ public class GameBetaApplet extends Applet implements Runnable {
 	Player p;
 	Image dbImage;
 	Graphics dbg;
+	private AudioClip InGameMusic;
+
+	
+	
 	public void init(){
 		setSize(1400,500);
 		p = new Player();
 	}
 	public void start(){thread.start();}
-	public void destroy(){running=false;}
-	public void stop(){running=false;}
+	public void destroy(){running=false;
+
+	}
+	public void stop(){running=false;
+	
+	}
 	public void run(){
+		 InGameMusic = getAudioClip(getDocumentBase(), "Jazz.wav");
+		 InGameMusic.loop();
 		try {
 			background = ImageIO.read(new File("background.jpg"));
 		} catch (IOException e1) {
@@ -48,4 +58,12 @@ public class GameBetaApplet extends Applet implements Runnable {
 		p.paint(g);
 		
 	}
-}
+	
+		
+	}
+
+	
+	
+
+	 
+
