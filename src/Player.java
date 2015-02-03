@@ -69,7 +69,7 @@ public class Player implements KeyListener{
 					g.setColor(Color.RED);
 					g.drawString("...::: GAME OVER!!! :::...", 250, 120);
 					g.setFont(new Font("TimesRoman", Font.ITALIC, 56));
-					String result = "Отговори правилно на " + answerCount + " от 27 въпроса";
+					String result = "Отговори правилно на " + answerCount + " от 10 въпроса";
 					g.drawString(result, 200, 180);
 				
 					
